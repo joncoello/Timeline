@@ -1,4 +1,5 @@
 ﻿using Janus.Windows.GridEX;
+using MYOB.CSS;
 using MYOB.CSSInterface;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,11 @@ namespace Timeline.UI.Maintenance.TimelineMaintenanceForm {
             var definitions = repo.Get();
             grdTimelines.SetDataBinding(definitions, string.Empty);
             
+        }
+
+        private void grdTimelines_RowDoubleClick(object sender, RowActionEventArgs e) {
+            var f = new TimelineDetailsMaintenance();
+            CssContext.Instance.Host.Register(f);
         }
     }
 }

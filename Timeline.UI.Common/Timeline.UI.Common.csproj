@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FormsFactory\TimelineDetailsMaintenance.cs" />
     <Compile Include="FormsFactory\TimelineMaintenance.cs" />
     <Compile Include="Menus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

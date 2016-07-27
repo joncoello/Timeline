@@ -37,6 +37,7 @@
             this.grdTimelines.Name = "grdTimelines";
             this.grdTimelines.Size = new System.Drawing.Size(612, 253);
             this.grdTimelines.TabIndex = 0;
+            this.grdTimelines.RowDoubleClick += new Janus.Windows.GridEX.RowActionEventHandler(this.grdTimelines_RowDoubleClick);
             // 
             // lblInfo
             // 
