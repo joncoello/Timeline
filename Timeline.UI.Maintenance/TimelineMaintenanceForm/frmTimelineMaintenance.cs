@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Timeline.DomainModel.Repositories;
 using Timeline.UI.Common.FormsFactory;
 
 namespace Timeline.UI.Maintenance.TimelineMaintenanceForm {
@@ -29,8 +30,25 @@ namespace Timeline.UI.Maintenance.TimelineMaintenanceForm {
         public SideBarGroups Register() {
             this.Show();
             return new SideBarGroups("");
-        } 
+        }
         #endregion
 
+        protected override void OnLoad(EventArgs e) {
+            base.OnLoad(e);
+
+            InitGrid();
+            LoadData();
+        }
+
+        private void InitGrid() {
+            
+        }
+
+        private void LoadData() {
+            var repo = new TimelineDefinitionRepository();
+            var definitions = repo.Get();
+            grdTimelines.SetDataBinding(definitions, string.Empty);
+            grdTimelines.RetrieveStructure();
+        }
     }
 }

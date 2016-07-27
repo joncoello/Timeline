@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timeline.UI.Maintenance", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timeline.UI.Common", "Timeline.UI.Common\Timeline.UI.Common.csproj", "{7D3E9D38-0EBD-4201-9444-388184C46F2D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timeline.DomainModel", "Timeline.DomainModel\Timeline.DomainModel.csproj", "{EC3F097A-1F23-4F6D-A075-16365AC52FF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{7D3E9D38-0EBD-4201-9444-388184C46F2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D3E9D38-0EBD-4201-9444-388184C46F2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D3E9D38-0EBD-4201-9444-388184C46F2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC3F097A-1F23-4F6D-A075-16365AC52FF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC3F097A-1F23-4F6D-A075-16365AC52FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC3F097A-1F23-4F6D-A075-16365AC52FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC3F097A-1F23-4F6D-A075-16365AC52FF3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
