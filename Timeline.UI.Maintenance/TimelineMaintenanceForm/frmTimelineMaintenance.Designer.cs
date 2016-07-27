@@ -33,9 +33,9 @@
             this.grdTimelines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grdTimelines.Location = new System.Drawing.Point(12, 125);
+            this.grdTimelines.Location = new System.Drawing.Point(12, 156);
             this.grdTimelines.Name = "grdTimelines";
-            this.grdTimelines.Size = new System.Drawing.Size(612, 253);
+            this.grdTimelines.Size = new System.Drawing.Size(612, 222);
             this.grdTimelines.TabIndex = 0;
             this.grdTimelines.RowDoubleClick += new Janus.Windows.GridEX.RowActionEventHandler(this.grdTimelines_RowDoubleClick);
             // 
@@ -47,7 +47,8 @@
             this.lblInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblInfo.Location = new System.Drawing.Point(12, 9);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(612, 99);
+            this.lblInfo.Padding = new System.Windows.Forms.Padding(5);
+            this.lblInfo.Size = new System.Drawing.Size(612, 125);
             this.lblInfo.TabIndex = 1;
             this.lblInfo.Text = "Manage your timelines from here.\r\n\r\nTo create a new time simply use the blank row" +
     " at the top, enter a name then click enter.\r\n\r\nTo edit an existing timeline, dou" +

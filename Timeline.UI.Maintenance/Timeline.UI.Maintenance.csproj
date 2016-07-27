@@ -89,6 +89,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="TimelineDetailsMaintenanceForm\frmTimelineDetailsMaintenance.resx">
+      <DependentUpon>frmTimelineDetailsMaintenance.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="TimelineMaintenanceForm\frmTimelineMaintenance.resx">
       <DependentUpon>frmTimelineMaintenance.cs</DependentUpon>
     </EmbeddedResource>
