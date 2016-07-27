@@ -1,4 +1,5 @@
-﻿using MYOB.CSSInterface;
+﻿using MYOB.CSS;
+using MYOB.CSSInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,8 @@ namespace Timeline.UI.Common {
             
             switch (e.Key) {
                 case "mnuTimelines":
-                    MessageBox.Show("Hello");
+                    var f = new FormsFactory.TimelineMaintenance();
+                    CssContext.Instance.Host.Register(f);
                     break;
             }
             
