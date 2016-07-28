@@ -17,9 +17,15 @@ using Timeline.UI.Common.FormsFactory;
 namespace Timeline.UI.Maintenance.TimelineMaintenanceForm {
     public partial class frmTimelineMaintenance : Form, ICSSDisplayMainArea {
 
+        #region declarations
+        private readonly TimelineDefinitionRepository _repo;
+        private BindingList<TimelineDefinition> definitions; 
+        #endregion
+
         #region ctor
         public frmTimelineMaintenance(TimelineMaintenance form) {
             InitializeComponent();
+            _repo = new TimelineDefinitionRepository();
         } 
         #endregion
 
@@ -36,6 +42,7 @@ namespace Timeline.UI.Maintenance.TimelineMaintenanceForm {
         }
         #endregion
 
+        #region setup
         protected override void OnLoad(EventArgs e) {
             base.OnLoad(e);
 
@@ -60,26 +67,34 @@ namespace Timeline.UI.Maintenance.TimelineMaintenanceForm {
             grdTimelines.VisualStyle = VisualStyle.Office2010;
             grdTimelines.AlternatingColors = true;
             grdTimelines.GroupByBoxVisible = false;
-            
+            grdTimelines.AllowAddNew = InheritableBoolean.True;
+
             col = rt.Columns.Add("Name");
             col.DataMember = "TimelineDefinitionName";
-            col.EditType = EditType.NoEdit;
-            col.Selectable = false;
-            
+            //col.EditType = EditType.NoEdit;
+            //col.Selectable = false;
+
         }
 
         private void LoadData() {
 
-            var repo = new TimelineDefinitionRepository();
-            var definitions = repo.Get();
+            definitions = _repo.Get();
             grdTimelines.SetDataBinding(definitions, string.Empty);
-            
-        }
 
+        }
+        #endregion
+
+        #region event
         private void grdTimelines_RowDoubleClick(object sender, RowActionEventArgs e) {
             var d = grdTimelines.GetRow().DataRow as TimelineDefinition;
             var f = new TimelineDetailsMaintenance(d.TimelineDefinitionID);
             CssContext.Instance.Host.Register(f);
         }
+
+        private void grdTimelines_RecordAdded(object sender, EventArgs e) {
+            _repo.Post(definitions.FirstOrDefault(d => d.TimelineDefinitionID == 0));
+        } 
+        #endregion
+
     }
 }

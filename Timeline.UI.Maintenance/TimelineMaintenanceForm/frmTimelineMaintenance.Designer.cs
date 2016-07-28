@@ -34,11 +34,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.grdTimelines.Location = new System.Drawing.Point(9, 105);
-            this.grdTimelines.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.grdTimelines.Margin = new System.Windows.Forms.Padding(2);
             this.grdTimelines.Name = "grdTimelines";
             this.grdTimelines.Size = new System.Drawing.Size(459, 202);
             this.grdTimelines.TabIndex = 0;
             this.grdTimelines.RowDoubleClick += new Janus.Windows.GridEX.RowActionEventHandler(this.grdTimelines_RowDoubleClick);
+            this.grdTimelines.RecordAdded += new System.EventHandler(this.grdTimelines_RecordAdded);
             // 
             // lblInfo
             // 
@@ -49,7 +50,7 @@
             this.lblInfo.Location = new System.Drawing.Point(9, 7);
             this.lblInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.lblInfo.Padding = new System.Windows.Forms.Padding(4);
             this.lblInfo.Size = new System.Drawing.Size(460, 80);
             this.lblInfo.TabIndex = 1;
             this.lblInfo.Text = "Manage your timelines from here.\r\n\r\nTo create a new time simply use the blank row" +
@@ -65,7 +66,7 @@
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.grdTimelines);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "frmTimelineMaintenance";
             this.Text = "frmTimelineMaintenance";
             ((System.ComponentModel.ISupportInitialize)(this.grdTimelines)).EndInit();
