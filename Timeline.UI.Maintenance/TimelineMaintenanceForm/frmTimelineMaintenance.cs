@@ -77,7 +77,8 @@ namespace Timeline.UI.Maintenance.TimelineMaintenanceForm {
         }
 
         private void grdTimelines_RowDoubleClick(object sender, RowActionEventArgs e) {
-            var f = new TimelineDetailsMaintenance();
+            var d = grdTimelines.GetRow().DataRow as TimelineDefinition;
+            var f = new TimelineDetailsMaintenance(d.TimelineDefinitionID);
             CssContext.Instance.Host.Register(f);
         }
     }
