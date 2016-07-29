@@ -26,16 +26,40 @@ Create Table WF.TimelineDefinitionStep(
 )
 go
 
+Create Table WF.ContactTimeline(
+	ClientTimelineID				INT		IDENTITY(1,1),
+	TimelineDefinitionID			INT,
+	TimelineDefinitionStepID		INT,
+	ContactID						INT,
+
+	Constraint PK_ClientTimeline Primary Key Clustered (ClientTimelineID),
+	Constraint FK_ClientTimeline_TimelineDefinition Foreign Key (TimelineDefinitionID) References WF.TimelineDefinition(TimelineDefinitionID),
+	Constraint FK_ClientTimeline_TimelineDefinitionStep Foreign Key (TimelineDefinitionStepID) References WF.TimelineDefinitionStep(TimelineDefinitionStepID),
+	Constraint FK_ClientTimeline_Contact Foreign Key (ContactID) References Contact(ContactID)
+)
+go
+
 -- test data
 declare @definitionID int
+declare @stepID int
 
+-- defintion
 insert into wf.TimelineDefinition(TimelineDefinitionName)
 values('Personal Tax')
 
 set @definitionID = SCOPE_IDENTITY()
 
 insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefinitionID)
-values 
-	('Step 1', @definitionID),
-	('Step 2', @definitionID),
-	('Step 3', @definitionID)
+values ('Step 1', @definitionID)
+
+insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefinitionID)
+values ('Step 2', @definitionID)
+
+set @stepID = SCOPE_IDENTITY()
+
+insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefinitionID)
+values ('Step 3', @definitionID)
+
+-- client
+insert into wf.ContactTimeline(TimelineDefinitionID, TimelineDefinitionStepID, ContactID)
+values(@definitionID, @stepID, 307) -- bob jones contact - change on other DBs

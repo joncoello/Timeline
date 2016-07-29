@@ -14,16 +14,19 @@ using Timeline.DomainModel.Repositories;
 
 namespace Timeline.UI.Client.ClientTimelineForm {
 
-    public partial class frmClientTimeline : Form, ICSSClientFormPlugIn  {
+    public partial class frmClientTimeline : Form, ICSSClientFormPlugIn {
 
+        #region declarations
         private int _clientID;
+        private ClientTimeline _timeline; 
+        #endregion
 
         #region ctor
         public frmClientTimeline() {
             InitializeComponent();
 
             FormatScreen();
-        } 
+        }
         #endregion
 
         #region ICSSClientFormPlugIn
@@ -47,18 +50,19 @@ namespace Timeline.UI.Client.ClientTimelineForm {
         }
 
         public void RefreshForm() {
-            
+
         }
 
         public void SaveChanges(object sender, CSSChildSaveEventArgs e) {
-            
+
         }
 
         #endregion
 
+        #region load
         protected override void OnLoad(EventArgs e) {
             base.OnLoad(e);
-            
+
             InitCombo();
             LoadComboData();
 
@@ -109,7 +113,6 @@ namespace Timeline.UI.Client.ClientTimelineForm {
 
             rt.RowHeight = 30;
 
-            grdSteps.RootTable = rt;
             grdSteps.ColumnAutoResize = true;
             grdSteps.VisualStyle = VisualStyle.Office2010;
             grdSteps.AlternatingColors = true;
@@ -121,23 +124,87 @@ namespace Timeline.UI.Client.ClientTimelineForm {
 
             col = rt.Columns.Add("Status");
             col.EditType = EditType.NoEdit;
+            //col.BoundMode = ColumnBoundMode.Unbound;
+            col.Caption = string.Empty;
             col.Selectable = false;
-            col.Width = 60;
+            col.Width = 40;
             col.AllowSize = false;
+            col.CellStyle.ImageHorizontalAlignment = ImageHorizontalAlignment.Center;
+
+            grdSteps.RootTable = rt;
 
         }
+        #endregion
 
+        #region events
         private void cboDefinition_ValueChanged(object sender, EventArgs e) {
 
             var definition = (cboDefinition.SelectedItem as TimelineDefinition);
 
             var repo = new ClientTimelineRepository();
 
-            var timeline = repo.Get(_clientID, definition.TimelineDefinitionID);
+            _timeline = repo.Get(_clientID, definition.TimelineDefinitionID);
 
-            grdSteps.SetDataBinding(timeline.Steps, string.Empty);
+            grdSteps.SetDataBinding(_timeline.Steps, string.Empty);
 
         }
+
+        private void grdSteps_FormattingRow(object sender, RowLoadEventArgs e) {
+
+            e.Row.Cells["Status"].Text = string.Empty;
+
+            var step = e.Row.DataRow as ClientTimelineStep;
+
+            switch (step.Status) {
+                case ClientTimelineStep.StepStatus.NotStarted:
+                    e.Row.Cells["Status"].ImageIndex = -1;
+                    break;
+                case ClientTimelineStep.StepStatus.InProgress:
+                    e.Row.Cells["Status"].ImageIndex = 0;
+                    break;
+                case ClientTimelineStep.StepStatus.Complete:
+                    e.Row.Cells["Status"].ImageIndex = 1;
+                    break;
+            }
+
+        }
+
+        private void cmdBack_Click(object sender, EventArgs e) {
+
+            var lastInProgressStep = _timeline.Steps.LastOrDefault(s => s.Status == ClientTimelineStep.StepStatus.InProgress);
+
+            if (lastInProgressStep != null && lastInProgressStep != _timeline.Steps[0]) {
+                lastInProgressStep.Status = ClientTimelineStep.StepStatus.NotStarted;
+            }
+
+            var lastCompleteStep = _timeline.Steps.LastOrDefault(s => s.Status == ClientTimelineStep.StepStatus.Complete);
+
+            if (lastCompleteStep != null) {
+
+                lastCompleteStep.Status = ClientTimelineStep.StepStatus.InProgress;
+                
+            }
+
+        }
+
+        private void cdmForward_Click(object sender, EventArgs e) {
+
+            var firstInProgressStep = _timeline.Steps.FirstOrDefault(s => s.Status == ClientTimelineStep.StepStatus.InProgress);
+
+            if (firstInProgressStep != null) {
+
+                firstInProgressStep.Status = ClientTimelineStep.StepStatus.Complete;
+
+                var firstNotStartedStep = _timeline.Steps.FirstOrDefault(s => s.Status == ClientTimelineStep.StepStatus.NotStarted);
+
+                if (firstNotStartedStep != null) {
+                    firstNotStartedStep.Status = ClientTimelineStep.StepStatus.InProgress;
+                }
+
+            }
+
+        } 
+        #endregion
 
     }
 

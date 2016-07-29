@@ -1,6 +1,9 @@
-﻿namespace Timeline.DomainModel.Models {
+﻿using System;
+using System.ComponentModel;
 
-    public class ClientTimelineStep {
+namespace Timeline.DomainModel.Models {
+
+    public class ClientTimelineStep : INotifyPropertyChanged {
 
         public enum StepStatus {
             NotStarted,
@@ -9,7 +12,27 @@
         }
 
         public string Name { get; set; }
-        public StepStatus Status { get; set; }
+
+        private StepStatus _status;
+        public StepStatus Status {
+            get {
+                return _status;
+            }
+            set {
+                if (value != _status) {
+                    _status = value;
+                    FirePropertyChanged("Status");
+                }
+            }
+        }
+
+        internal void FirePropertyChanged(string propertyName) {
+            if (PropertyChanged != null) {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 
 }
