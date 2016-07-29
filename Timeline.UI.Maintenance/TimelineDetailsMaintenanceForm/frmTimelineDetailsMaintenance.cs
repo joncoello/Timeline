@@ -11,16 +11,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Timeline.DomainModel.Repositories;
 using Timeline.UI.Common.FormsFactory;
+using Timeline.DomainModel.Models;
 
 namespace Timeline.UI.Maintenance.TimelineDetailsMaintenanceForm {
     public partial class frmTimelineDetailsMaintenance : Form, ICSSDisplayMainArea {
 
         private readonly int _definitionID;
+        private readonly TimelineDefinitionRepository repo;
+        private TimelineDefinitionDetails definition;
 
         #region ctor
         public frmTimelineDetailsMaintenance(TimelineDetailsMaintenance form) {
             InitializeComponent();
             _definitionID = form.DefinitionID;
+            repo = new TimelineDefinitionRepository();
         }
         #endregion
 
@@ -70,12 +74,41 @@ namespace Timeline.UI.Maintenance.TimelineDetailsMaintenanceForm {
         }
 
         private void LoadData() {
-
-            var repo = new TimelineDefinitionRepository();
-            var definition = repo.Get(_definitionID);
+            
+            definition = repo.Get(_definitionID);
             grdSteps.SetDataBinding(definition.Steps, string.Empty);
 
             txtName.Text = definition.TimelineDefinitionName;
+
+        }
+
+        private void cmdMoveUp_Click(object sender, EventArgs e) {
+            
+            var step = grdSteps.GetRow().DataRow as DefinitionStep;
+            int index = definition.Steps.IndexOf(step);
+            if (index > 0) {
+                definition.Steps.Remove(step);
+                definition.Steps.Insert(index - 1, step);
+
+                // select row
+                var row = grdSteps.GetRows().FirstOrDefault(r => (r.DataRow as DefinitionStep) == step);
+                grdSteps.MoveToRowIndex(row.RowIndex);
+            }
+
+        }
+
+        private void cmdMoveDown_Click(object sender, EventArgs e) {
+
+            var step = grdSteps.GetRow().DataRow as DefinitionStep;
+            int index = definition.Steps.IndexOf(step);
+            if (index < definition.Steps.Count - 1) {
+                definition.Steps.Remove(step);
+                definition.Steps.Insert(index + 1, step);
+
+                // select row
+                var row = grdSteps.GetRows().FirstOrDefault(r => (r.DataRow as DefinitionStep) == step);
+                grdSteps.MoveToRowIndex(row.RowIndex);
+            }
 
         }
     }

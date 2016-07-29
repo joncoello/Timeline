@@ -33,10 +33,10 @@
             this.grdTimelines.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grdTimelines.Location = new System.Drawing.Point(9, 105);
-            this.grdTimelines.Margin = new System.Windows.Forms.Padding(2);
+            this.grdTimelines.Location = new System.Drawing.Point(12, 150);
+            this.grdTimelines.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.grdTimelines.Name = "grdTimelines";
-            this.grdTimelines.Size = new System.Drawing.Size(459, 202);
+            this.grdTimelines.Size = new System.Drawing.Size(612, 228);
             this.grdTimelines.TabIndex = 0;
             this.grdTimelines.RowDoubleClick += new Janus.Windows.GridEX.RowActionEventHandler(this.grdTimelines_RowDoubleClick);
             this.grdTimelines.RecordAdded += new System.EventHandler(this.grdTimelines_RecordAdded);
@@ -47,11 +47,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfo.BackColor = System.Drawing.Color.LightGoldenrodYellow;
             this.lblInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.lblInfo.Location = new System.Drawing.Point(9, 7);
-            this.lblInfo.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.lblInfo.Location = new System.Drawing.Point(12, 9);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Padding = new System.Windows.Forms.Padding(4);
-            this.lblInfo.Size = new System.Drawing.Size(460, 80);
+            this.lblInfo.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.lblInfo.Size = new System.Drawing.Size(613, 116);
             this.lblInfo.TabIndex = 1;
             this.lblInfo.Text = "Manage your timelines from here.\r\n\r\nTo create a new time simply use the blank row" +
     " at the top, enter a name then click enter.\r\n\r\nTo edit an existing timeline, dou" +
@@ -59,14 +58,14 @@
             // 
             // frmTimelineMaintenance
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(477, 317);
+            this.ClientSize = new System.Drawing.Size(636, 390);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.grdTimelines);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmTimelineMaintenance";
             this.Text = "frmTimelineMaintenance";
             ((System.ComponentModel.ISupportInitialize)(this.grdTimelines)).EndInit();
