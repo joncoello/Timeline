@@ -67,13 +67,10 @@ namespace Timeline.UI.Maintenance.TimelineMaintenanceForm {
             grdTimelines.VisualStyle = VisualStyle.Office2010;
             grdTimelines.AlternatingColors = true;
             grdTimelines.GroupByBoxVisible = false;
-            grdTimelines.AllowAddNew = InheritableBoolean.True;
-
+            
             col = rt.Columns.Add("Name");
             col.DataMember = "TimelineDefinitionName";
-            //col.EditType = EditType.NoEdit;
-            //col.Selectable = false;
-
+            
         }
 
         private void LoadData() {
@@ -85,15 +82,19 @@ namespace Timeline.UI.Maintenance.TimelineMaintenanceForm {
         #endregion
 
         #region event
+
         private void grdTimelines_RowDoubleClick(object sender, RowActionEventArgs e) {
             var d = grdTimelines.GetRow().DataRow as TimelineDefinition;
             var f = new TimelineDetailsMaintenance(d.TimelineDefinitionID);
             CssContext.Instance.Host.Register(f);
         }
 
-        private void grdTimelines_RecordAdded(object sender, EventArgs e) {
-            _repo.Post(definitions.FirstOrDefault(d => d.TimelineDefinitionID == 0));
-        } 
+        private void cmdCreate_Click(object sender, EventArgs e) {
+            var d = grdTimelines.GetRow().DataRow as TimelineDefinition;
+            var f = new TimelineDetailsMaintenance(0);
+            CssContext.Instance.Host.Register(f);
+        }
+
         #endregion
 
     }

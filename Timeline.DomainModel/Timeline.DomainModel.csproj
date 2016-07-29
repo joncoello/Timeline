@@ -57,6 +57,7 @@
     <Compile Include="Models\TimelineDefinitionDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ClientTimelineRepository.cs" />
+    <Compile Include="Repositories\TimelineDefinitionDetailsRepository.cs" />
     <Compile Include="Repositories\TimelineDefinitionRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

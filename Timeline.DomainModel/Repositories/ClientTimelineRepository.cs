@@ -20,7 +20,7 @@ namespace Timeline.DomainModel.Repositories {
 
             var data =
                 centralDal.GetDataset(
-                    "select * from wf.TimelineDefinitionStep where TimelineDefinitionID = @timelineDefinitionID " +
+                    "select * from wf.TimelineDefinitionStep where TimelineDefinitionID = @timelineDefinitionID order by position " +
                     "select * from wf.ContactTimeline where contactID = @contactID and TimelineDefinitionID = @TimelineDefinitionID",
                     new DalParm[] {
                         new DalParm("@contactID", System.Data.SqlDbType.Int, 0, contactID),

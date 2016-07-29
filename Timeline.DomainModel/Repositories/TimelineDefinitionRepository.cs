@@ -38,51 +38,6 @@ namespace Timeline.DomainModel.Repositories {
             return definitions;
 
         }
-
-        public TimelineDefinitionDetails Get(int definitionID) {
-
-            var centralDal = CssContext.Instance.GetDAL(string.Empty) as DAL;
-
-            string sql =
-                "select * from wf.timelinedefinition where TimelineDefinitionID = @TimelineDefinitionID " +
-                "select * from wf.timelinedefinitionstep where TimelineDefinitionID = @TimelineDefinitionID ";
-
-            var data = centralDal.GetDataset(sql, new DalParm[] {
-                new DalParm("@TimelineDefinitionID", SqlDbType.VarChar, 0, definitionID)
-            });
-
-            var d = new TimelineDefinitionDetails() {
-                TimelineDefinitionID = Convert.ToInt32(data.Tables[0].Rows[0]["TimelineDefinitionID"]),
-                TimelineDefinitionName = Convert.ToString(data.Tables[0].Rows[0]["TimelineDefinitionName"])
-            };
-
-            foreach (DataRow row in data.Tables[1].Rows) {
-                d.Steps.Add(new DefinitionStep() {
-                    DefinitionStepID = Convert.ToInt32(row["TimelineDefinitionStepID"]),
-                    DefinitionStepName = Convert.ToString(row["TimelineDefinitionStepName"])
-                });
-            }
-            
-            return d;
-
-        }
-
-        public void Post(TimelineDefinition timelineDefinition) {
-
-            var centralDal = CssContext.Instance.GetDAL(string.Empty) as DAL;
-
-            string sql =
-                "insert into wf.timelinedefinition " +
-                "values(@name) " +
-                "select SCOPE_IDENTITY()";
-
-            var data = centralDal.GetDataset(sql, new DalParm[] {
-                new DalParm("@name", SqlDbType.VarChar, 0, timelineDefinition.TimelineDefinitionName)
-            });
-
-            timelineDefinition.TimelineDefinitionID = Convert.ToInt32(data.Tables[0].Rows[0][0]);
-            
-        }
-
+        
     }
 }

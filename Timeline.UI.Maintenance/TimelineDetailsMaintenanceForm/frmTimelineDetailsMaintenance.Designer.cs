@@ -29,6 +29,7 @@
             this.lblInfo = new System.Windows.Forms.Label();
             this.cmdMoveUp = new Janus.Windows.EditControls.UIButton();
             this.cmdMoveDown = new Janus.Windows.EditControls.UIButton();
+            this.cmdSave = new Janus.Windows.EditControls.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdSteps)).BeginInit();
             this.SuspendLayout();
             // 
@@ -68,7 +69,7 @@
             this.lblInfo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.lblInfo.Location = new System.Drawing.Point(12, 66);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.lblInfo.Padding = new System.Windows.Forms.Padding(5);
             this.lblInfo.Size = new System.Drawing.Size(685, 68);
             this.lblInfo.TabIndex = 3;
             this.lblInfo.Text = "Edit a timeline from here.\r\n\r\nMake changes to the list of milestones and their or" +
@@ -78,7 +79,7 @@
             // 
             this.cmdMoveUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdMoveUp.Location = new System.Drawing.Point(573, 154);
-            this.cmdMoveUp.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdMoveUp.Margin = new System.Windows.Forms.Padding(4);
             this.cmdMoveUp.Name = "cmdMoveUp";
             this.cmdMoveUp.Size = new System.Drawing.Size(125, 28);
             this.cmdMoveUp.TabIndex = 4;
@@ -90,7 +91,7 @@
             // 
             this.cmdMoveDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cmdMoveDown.Location = new System.Drawing.Point(573, 190);
-            this.cmdMoveDown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmdMoveDown.Margin = new System.Windows.Forms.Padding(4);
             this.cmdMoveDown.Name = "cmdMoveDown";
             this.cmdMoveDown.Size = new System.Drawing.Size(123, 28);
             this.cmdMoveDown.TabIndex = 5;
@@ -98,12 +99,25 @@
             this.cmdMoveDown.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010;
             this.cmdMoveDown.Click += new System.EventHandler(this.cmdMoveDown_Click);
             // 
+            // cmdSave
+            // 
+            this.cmdSave.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cmdSave.Location = new System.Drawing.Point(571, 22);
+            this.cmdSave.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdSave.Name = "cmdSave";
+            this.cmdSave.Size = new System.Drawing.Size(125, 28);
+            this.cmdSave.TabIndex = 6;
+            this.cmdSave.Text = "save";
+            this.cmdSave.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010;
+            this.cmdSave.Click += new System.EventHandler(this.cmdSave_Click);
+            // 
             // frmTimelineDetailsMaintenance
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(709, 478);
+            this.Controls.Add(this.cmdSave);
             this.Controls.Add(this.cmdMoveDown);
             this.Controls.Add(this.cmdMoveUp);
             this.Controls.Add(this.lblInfo);
@@ -128,5 +142,6 @@
         private System.Windows.Forms.Label lblInfo;
         private Janus.Windows.EditControls.UIButton cmdMoveUp;
         private Janus.Windows.EditControls.UIButton cmdMoveDown;
+        private Janus.Windows.EditControls.UIButton cmdSave;
     }
 }

@@ -16,15 +16,17 @@ using Timeline.DomainModel.Models;
 namespace Timeline.UI.Maintenance.TimelineDetailsMaintenanceForm {
     public partial class frmTimelineDetailsMaintenance : Form, ICSSDisplayMainArea {
 
+        #region declarations
         private readonly int _definitionID;
-        private readonly TimelineDefinitionRepository repo;
-        private TimelineDefinitionDetails definition;
+        private readonly TimelineDefinitionDetailsRepository repo;
+        private TimelineDefinitionDetails definition; 
+        #endregion
 
         #region ctor
         public frmTimelineDetailsMaintenance(TimelineDetailsMaintenance form) {
             InitializeComponent();
             _definitionID = form.DefinitionID;
-            repo = new TimelineDefinitionRepository();
+            repo = new TimelineDefinitionDetailsRepository();
         }
         #endregion
 
@@ -41,6 +43,7 @@ namespace Timeline.UI.Maintenance.TimelineDetailsMaintenanceForm {
         }
         #endregion
 
+        #region setup screen
         protected override void OnLoad(EventArgs e) {
             base.OnLoad(e);
 
@@ -65,25 +68,33 @@ namespace Timeline.UI.Maintenance.TimelineDetailsMaintenanceForm {
             grdSteps.VisualStyle = VisualStyle.Office2010;
             grdSteps.AlternatingColors = true;
             grdSteps.GroupByBoxVisible = false;
+            grdSteps.AllowAddNew = InheritableBoolean.True;
 
             col = rt.Columns.Add("Name");
             col.DataMember = "DefinitionStepName";
-            col.EditType = EditType.NoEdit;
-            col.Selectable = false;
 
         }
 
         private void LoadData() {
-            
-            definition = repo.Get(_definitionID);
+
+            if (_definitionID == 0) {
+                definition = new TimelineDefinitionDetails() {
+                    TimelineDefinitionName = "New timeline"
+                };
+            } else {
+                definition = repo.Get(_definitionID);
+            }
+
             grdSteps.SetDataBinding(definition.Steps, string.Empty);
 
             txtName.Text = definition.TimelineDefinitionName;
 
-        }
+        } 
+        #endregion
 
+        #region event
         private void cmdMoveUp_Click(object sender, EventArgs e) {
-            
+
             var step = grdSteps.GetRow().DataRow as DefinitionStep;
             int index = definition.Steps.IndexOf(step);
             if (index > 0) {
@@ -111,5 +122,12 @@ namespace Timeline.UI.Maintenance.TimelineDetailsMaintenanceForm {
             }
 
         }
+
+        private void cmdSave_Click(object sender, EventArgs e) {
+            definition.TimelineDefinitionName = txtName.Text;
+            repo.Post(definition);
+        } 
+        #endregion
+
     }
 }
