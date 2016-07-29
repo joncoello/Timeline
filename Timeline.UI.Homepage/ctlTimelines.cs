@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
 using System.Threading;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace Timeline.UI.Homepage {
     public partial class ctlTimelines : HomepageBase {
@@ -21,8 +22,16 @@ namespace Timeline.UI.Homepage {
         }
 
         private void FormatChart() {
-            chtTimeline.Series[0].XValueMember = "Milestone";
-            chtTimeline.Series[0].YValueMembers = "Count";
+
+            var series = chtTimeline.Series[0];
+
+            series.XValueMember = "Milestone";
+            series.YValueMembers = "Count";
+            series.ChartType = SeriesChartType.Pie;
+            series.Palette = ChartColorPalette.BrightPastel;
+            series["PieLabelStyle"] = "Disabled";
+            series["PieDrawingStyle"] = "SoftEdge";
+
         }
 
         public override string DisplayName {
@@ -55,7 +64,7 @@ namespace Timeline.UI.Homepage {
             data.Columns.Add("Milestone", typeof(string));
             data.Columns.Add("Count", typeof(int));
 
-            data.Rows.Add("Information requested", 432);
+            data.Rows.Add("Information requested", 232);
             data.Rows.Add("Information received", 132);
             data.Rows.Add("Processing return", 86);
             data.Rows.Add("In review", 91);
