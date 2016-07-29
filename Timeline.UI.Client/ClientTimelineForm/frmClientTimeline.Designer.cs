@@ -37,9 +37,9 @@
             this.grdSteps.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.grdSteps.Location = new System.Drawing.Point(12, 49);
+            this.grdSteps.Location = new System.Drawing.Point(12, 64);
             this.grdSteps.Name = "grdSteps";
-            this.grdSteps.Size = new System.Drawing.Size(834, 507);
+            this.grdSteps.Size = new System.Drawing.Size(834, 492);
             this.grdSteps.TabIndex = 0;
             this.grdSteps.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010;
             // 
@@ -54,6 +54,7 @@
             this.cboDefinition.Size = new System.Drawing.Size(317, 22);
             this.cboDefinition.TabIndex = 1;
             this.cboDefinition.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010;
+            this.cboDefinition.ValueChanged += new System.EventHandler(this.cboDefinition_ValueChanged);
             // 
             // cmdCreate
             // 

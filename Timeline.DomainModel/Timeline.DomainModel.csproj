@@ -50,10 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ClientTimeline.cs" />
+    <Compile Include="Models\ClientTimelineStep.cs" />
     <Compile Include="Models\DefinitionStep.cs" />
     <Compile Include="Models\TimelineDefinition.cs" />
     <Compile Include="Models\TimelineDefinitionDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ClientTimelineRepository.cs" />
     <Compile Include="Repositories\TimelineDefinitionRepository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
