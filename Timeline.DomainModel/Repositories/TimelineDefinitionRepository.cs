@@ -44,7 +44,8 @@ namespace Timeline.DomainModel.Repositories {
             var centralDal = CssContext.Instance.GetDAL(string.Empty) as DAL;
 
             string sql =
-                "select * from wf.timelinedefinition where TimelineDefinitionID = @TimelineDefinitionID";
+                "select * from wf.timelinedefinition where TimelineDefinitionID = @TimelineDefinitionID " +
+                "select * from wf.timelinedefinitionstep where TimelineDefinitionID = @TimelineDefinitionID ";
 
             var data = centralDal.GetDataset(sql, new DalParm[] {
                 new DalParm("@TimelineDefinitionID", SqlDbType.VarChar, 0, definitionID)
@@ -55,11 +56,13 @@ namespace Timeline.DomainModel.Repositories {
                 TimelineDefinitionName = Convert.ToString(data.Tables[0].Rows[0]["TimelineDefinitionName"])
             };
 
-            d.Steps.Add(new DefinitionStep() { DefinitionStepID = 1, DefinitionStepName = "Step 1" });
-            d.Steps.Add(new DefinitionStep() { DefinitionStepID = 1, DefinitionStepName = "Step 2" });
-            d.Steps.Add(new DefinitionStep() { DefinitionStepID = 1, DefinitionStepName = "Step 3" });
-            d.Steps.Add(new DefinitionStep() { DefinitionStepID = 1, DefinitionStepName = "Step 4" });
-
+            foreach (DataRow row in data.Tables[1].Rows) {
+                d.Steps.Add(new DefinitionStep() {
+                    DefinitionStepID = Convert.ToInt32(row["TimelineDefinitionStepID"]),
+                    DefinitionStepName = Convert.ToString(row["TimelineDefinitionStepName"])
+                });
+            }
+            
             return d;
 
         }
