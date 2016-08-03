@@ -68,16 +68,49 @@
     <Compile Include="ctlTimelines.Designer.cs">
       <DependentUpon>ctlTimelines.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmOnboarding.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOnboarding.Designer.cs">
+      <DependentUpon>frmOnboarding.cs</DependentUpon>
+    </Compile>
     <Compile Include="HomepageBase.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ctlTimelines.resx">
       <DependentUpon>ctlTimelines.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="frmOnboarding.resx">
+      <DependentUpon>frmOnboarding.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\evoCYCLE.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Dollarphotoclub_83082872-1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\automated.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\man02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\express.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

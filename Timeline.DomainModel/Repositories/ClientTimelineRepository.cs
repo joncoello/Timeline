@@ -27,18 +27,29 @@ namespace Timeline.DomainModel.Repositories {
                         new DalParm("@timelineDefinitionID", System.Data.SqlDbType.Int, 0, definitionID)
                     });
 
-            var s = ClientTimelineStep.StepStatus.Complete;
+            if (data.Tables[1].Rows.Count > 0) {
 
-            foreach (DataRow row in data.Tables[0].Rows) {
-                ct.Steps.Add(new ClientTimelineStep() {
-                    Name = Convert.ToString(row["TimelineDefinitionStepName"]),
-                    Status = s
-                });
+                int selectedStepID = Convert.ToInt32(data.Tables[1].Rows[0]["TimelineDefinitionStepID"]);
+                var status = ClientTimelineStep.StepStatus.Complete;
 
-                if (s == ClientTimelineStep.StepStatus.Complete) {
-                    s = ClientTimelineStep.StepStatus.InProgress;
-                } else if (s == ClientTimelineStep.StepStatus.InProgress) {
-                    s = ClientTimelineStep.StepStatus.NotStarted;
+                foreach (DataRow row in data.Tables[0].Rows) {
+
+                    int stepID = Convert.ToInt32(row["TimelineDefinitionStepID"]);
+
+                    if (selectedStepID == stepID) {
+                        status = ClientTimelineStep.StepStatus.InProgress;
+                    }
+
+                    ct.Steps.Add(new ClientTimelineStep() {
+                        StepID = stepID,
+                        Name = Convert.ToString(row["TimelineDefinitionStepName"]),
+                        Status = status
+                    });
+
+                    if (status == ClientTimelineStep.StepStatus.InProgress) {
+                        status = ClientTimelineStep.StepStatus.NotStarted;
+                    }
+
                 }
 
             }
@@ -47,6 +58,16 @@ namespace Timeline.DomainModel.Repositories {
 
         }
 
+        public void Post(int contactID, int timelineDefinitionID, int stepID) {
+            var centralDal = CssContext.Instance.GetDAL(string.Empty) as DAL;
+            centralDal.GetDataset(
+                "update WF.ContactTimeline set TimelineDefinitionStepID = @stepid where contactid = @contactid and TimelineDefinitionID = @TimelineDefinitionID",
+                new DalParm[] {
+                    new DalParm("stepid", SqlDbType.Int, 0, stepID),
+                    new DalParm("contactid", SqlDbType.Int, 0, contactID),
+                    new DalParm("timelineDefinitionID", SqlDbType.Int, 0, timelineDefinitionID)
+                });
+        }
     }
 
 }

@@ -92,5 +92,9 @@ namespace Timeline.UI.Homepage {
             
         }
 
+        private void ctlTimelines_DoubleClick(object sender, EventArgs e) {
+            var f = new frmOnboarding();
+            f.ShowDialog();
+        }
     }
 }

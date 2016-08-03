@@ -26,6 +26,8 @@ namespace Timeline.DomainModel.Models {
             }
         }
 
+        public int StepID { get; set; }
+
         internal void FirePropertyChanged(string propertyName) {
             if (PropertyChanged != null) {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));

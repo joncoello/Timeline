@@ -37,8 +37,9 @@ go
 Create Table WF.ContactTimeline(
 	ClientTimelineID				INT		IDENTITY(1,1),
 	TimelineDefinitionID			INT,
-	TimelineDefinitionStepID		INT,
 	ContactID						INT,
+	TimelineDefinitionStepID		INT,
+	IsComplete						BIT,
 
 	Constraint PK_ClientTimeline Primary Key Clustered (ClientTimelineID),
 	Constraint FK_ClientTimeline_TimelineDefinition Foreign Key (TimelineDefinitionID) References WF.TimelineDefinition(TimelineDefinitionID),

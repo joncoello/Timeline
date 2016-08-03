@@ -78,6 +78,7 @@
             this.Controls.Add(this.chtTimeline);
             this.Name = "ctlTimelines";
             this.Size = new System.Drawing.Size(411, 395);
+            this.DoubleClick += new System.EventHandler(this.ctlTimelines_DoubleClick);
             this.Controls.SetChildIndex(this.chtTimeline, 0);
             this.Controls.SetChildIndex(this.cboDefinition, 0);
             this.Controls.SetChildIndex(this.cmdClose, 0);

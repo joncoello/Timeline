@@ -1,5 +1,8 @@
-﻿using Janus.Windows.GridEX;
+﻿using Central.CSSContactAPI;
+using Janus.Windows.GridEX;
+using MYOB.CSS;
 using MYOB.CSSInterface;
+using MYOB.DAL;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,7 +21,9 @@ namespace Timeline.UI.Client.ClientTimelineForm {
 
         #region declarations
         private int _clientID;
-        private ClientTimeline _timeline; 
+        private ClientTimeline _timeline;
+        private int _contactID;
+        private TimelineDefinition _definition;
         #endregion
 
         #region ctor
@@ -47,6 +52,10 @@ namespace Timeline.UI.Client.ClientTimelineForm {
 
         public void LoadClient(int ClientId, ICSSHost Host) {
             _clientID = ClientId;
+            var dal = CssContext.Instance.GetDAL(string.Empty) as DAL;
+            var centralGateway = new CentralGateway(dal);
+            var client = centralGateway.FindClient(_clientID, CssContext.Instance.Host.EmployeeId);
+            _contactID = client.Contact.ContactId;
         }
 
         public void RefreshForm() {
@@ -82,6 +91,10 @@ namespace Timeline.UI.Client.ClientTimelineForm {
 
             cboDefinition.DropDownList.ColumnAutoResize = true;
             cboDefinition.DropDownList.TableHeaders = InheritableBoolean.False;
+            cboDefinition.DropDownList.ColumnHeaders = InheritableBoolean.False;
+            cboDefinition.DropDownList.Height = 100;
+
+            cboDefinition.ComboStyle = ComboStyle.DropDownList;
 
             col = cboDefinition.DropDownList.Columns.Add("TimelineDefinitionID");
             col.Visible = false;
@@ -137,13 +150,14 @@ namespace Timeline.UI.Client.ClientTimelineForm {
         #endregion
 
         #region events
+
         private void cboDefinition_ValueChanged(object sender, EventArgs e) {
 
-            var definition = (cboDefinition.SelectedItem as TimelineDefinition);
+            _definition = (cboDefinition.SelectedItem as TimelineDefinition);
 
             var repo = new ClientTimelineRepository();
 
-            _timeline = repo.Get(_clientID, definition.TimelineDefinitionID);
+            _timeline = repo.Get(_contactID, _definition.TimelineDefinitionID);
 
             grdSteps.SetDataBinding(_timeline.Steps, string.Empty);
 
@@ -182,9 +196,11 @@ namespace Timeline.UI.Client.ClientTimelineForm {
             if (lastCompleteStep != null) {
 
                 lastCompleteStep.Status = ClientTimelineStep.StepStatus.InProgress;
+
+                
                 
             }
-
+            
         }
 
         private void cdmForward_Click(object sender, EventArgs e) {
@@ -199,11 +215,16 @@ namespace Timeline.UI.Client.ClientTimelineForm {
 
                 if (firstNotStartedStep != null) {
                     firstNotStartedStep.Status = ClientTimelineStep.StepStatus.InProgress;
+
+                    var repo = new ClientTimelineRepository();
+                    repo.Post(_contactID, _definition.TimelineDefinitionID, firstNotStartedStep.StepID);
+
                 }
 
             }
 
         } 
+
         #endregion
 
     }
