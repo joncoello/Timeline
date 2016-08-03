@@ -197,8 +197,9 @@ namespace Timeline.UI.Client.ClientTimelineForm {
 
                 lastCompleteStep.Status = ClientTimelineStep.StepStatus.InProgress;
 
-                
-                
+                var repo = new ClientTimelineRepository();
+                repo.Post(_contactID, _definition.TimelineDefinitionID, lastCompleteStep.StepID, false);
+
             }
             
         }
