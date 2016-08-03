@@ -24,14 +24,15 @@
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
-            Janus.Windows.GridEX.GridEXLayout cboDefinition_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmClientTimeline));
+            Janus.Windows.GridEX.GridEXLayout cboDefinition_DesignTimeLayout = new Janus.Windows.GridEX.GridEXLayout();
             this.grdSteps = new Janus.Windows.GridEX.GridEX();
+            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.cboDefinition = new Janus.Windows.GridEX.EditControls.MultiColumnCombo();
             this.cmdCreate = new Janus.Windows.EditControls.UIButton();
-            this.imageList = new System.Windows.Forms.ImageList(this.components);
             this.cdmForward = new Janus.Windows.EditControls.UIButton();
             this.cmdBack = new Janus.Windows.EditControls.UIButton();
+            this.cmdDelete = new Janus.Windows.EditControls.UIButton();
             ((System.ComponentModel.ISupportInitialize)(this.grdSteps)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cboDefinition)).BeginInit();
             this.SuspendLayout();
@@ -48,6 +49,15 @@
             this.grdSteps.TabIndex = 0;
             this.grdSteps.VisualStyle = Janus.Windows.GridEX.VisualStyle.Office2010;
             this.grdSteps.FormattingRow += new Janus.Windows.GridEX.RowLoadEventHandler(this.grdSteps_FormattingRow);
+            // 
+            // imageList
+            // 
+            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
+            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList.Images.SetKeyName(0, "gear.png");
+            this.imageList.Images.SetKeyName(1, "check2.png");
+            this.imageList.Images.SetKeyName(2, "undo.png");
+            this.imageList.Images.SetKeyName(3, "redo.png");
             // 
             // cboDefinition
             // 
@@ -70,15 +80,7 @@
             this.cmdCreate.TabIndex = 2;
             this.cmdCreate.Text = "Create";
             this.cmdCreate.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010;
-            // 
-            // imageList
-            // 
-            this.imageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList.ImageStream")));
-            this.imageList.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList.Images.SetKeyName(0, "gear.png");
-            this.imageList.Images.SetKeyName(1, "check2.png");
-            this.imageList.Images.SetKeyName(2, "undo.png");
-            this.imageList.Images.SetKeyName(3, "redo.png");
+            this.cmdCreate.Click += new System.EventHandler(this.cmdCreate_Click);
             // 
             // cdmForward
             // 
@@ -104,12 +106,23 @@
             this.cmdBack.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010;
             this.cmdBack.Click += new System.EventHandler(this.cmdBack_Click);
             // 
+            // cmdDelete
+            // 
+            this.cmdDelete.Location = new System.Drawing.Point(416, 21);
+            this.cmdDelete.Name = "cmdDelete";
+            this.cmdDelete.Size = new System.Drawing.Size(75, 22);
+            this.cmdDelete.TabIndex = 5;
+            this.cmdDelete.Text = "Delete";
+            this.cmdDelete.VisualStyle = Janus.Windows.UI.VisualStyle.Office2010;
+            this.cmdDelete.Click += new System.EventHandler(this.cmdDelete_Click);
+            // 
             // frmClientTimeline
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(858, 568);
+            this.Controls.Add(this.cmdDelete);
             this.Controls.Add(this.cmdBack);
             this.Controls.Add(this.cdmForward);
             this.Controls.Add(this.cmdCreate);
@@ -133,5 +146,6 @@
         private System.Windows.Forms.ImageList imageList;
         private Janus.Windows.EditControls.UIButton cdmForward;
         private Janus.Windows.EditControls.UIButton cmdBack;
+        private Janus.Windows.EditControls.UIButton cmdDelete;
     }
 }

@@ -24,12 +24,15 @@ namespace Timeline.UI.Client.ClientTimelineForm {
         private ClientTimeline _timeline;
         private int _contactID;
         private TimelineDefinition _definition;
+        private ClientTimelineRepository _repo;
         #endregion
 
         #region ctor
         public frmClientTimeline() {
-            InitializeComponent();
+            _repo = new ClientTimelineRepository();
 
+            InitializeComponent();
+            
             FormatScreen();
         }
         #endregion
@@ -147,11 +150,8 @@ namespace Timeline.UI.Client.ClientTimelineForm {
             grdSteps.RootTable = rt;
 
         }
-        #endregion
 
-        #region events
-
-        private void cboDefinition_ValueChanged(object sender, EventArgs e) {
+        private void LoadStepData() {
 
             _definition = (cboDefinition.SelectedItem as TimelineDefinition);
 
@@ -163,6 +163,14 @@ namespace Timeline.UI.Client.ClientTimelineForm {
 
         }
 
+        #endregion
+
+        #region events
+
+        private void cboDefinition_ValueChanged(object sender, EventArgs e) {
+            LoadStepData();
+        }
+        
         private void grdSteps_FormattingRow(object sender, RowLoadEventArgs e) {
 
             e.Row.Cells["Status"].Text = string.Empty;
@@ -196,9 +204,8 @@ namespace Timeline.UI.Client.ClientTimelineForm {
             if (lastCompleteStep != null) {
 
                 lastCompleteStep.Status = ClientTimelineStep.StepStatus.InProgress;
-
-                var repo = new ClientTimelineRepository();
-                repo.Post(_contactID, _definition.TimelineDefinitionID, lastCompleteStep.StepID, false);
+                
+                _repo.Patch(_contactID, _definition.TimelineDefinitionID, lastCompleteStep.StepID, false);
 
             }
             
@@ -225,14 +232,23 @@ namespace Timeline.UI.Client.ClientTimelineForm {
                     firstNotStartedStep.Status = ClientTimelineStep.StepStatus.InProgress;
                     
                 }
-
-                var repo = new ClientTimelineRepository();
-                repo.Post(_contactID, _definition.TimelineDefinitionID, stepID, isComplete);
+                
+                _repo.Patch(_contactID, _definition.TimelineDefinitionID, stepID, isComplete);
 
 
             }
 
-        } 
+        }
+
+        private void cmdCreate_Click(object sender, EventArgs e) {
+            _repo.Post(_contactID, _definition.TimelineDefinitionID);
+            LoadStepData();
+        }
+
+        private void cmdDelete_Click(object sender, EventArgs e) {
+            _repo.Delete(_contactID, _definition.TimelineDefinitionID);
+            LoadStepData();
+        }
 
         #endregion
 

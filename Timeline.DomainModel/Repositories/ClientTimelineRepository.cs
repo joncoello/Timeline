@@ -60,13 +60,42 @@ namespace Timeline.DomainModel.Repositories {
 
         }
 
-        public void Post(int contactID, int timelineDefinitionID, int stepID, bool isComplete) {
+        public void Patch(int contactID, int timelineDefinitionID, int stepID, bool isComplete) {
             var centralDal = CssContext.Instance.GetDAL(string.Empty) as DAL;
             centralDal.GetDataset(
                 "update WF.ContactTimeline set TimelineDefinitionStepID = @stepid, iscomplete = @iscomplete where contactid = @contactid and TimelineDefinitionID = @TimelineDefinitionID",
                 new DalParm[] {
                     new DalParm("stepid", SqlDbType.Int, 0, stepID),
                     new DalParm("iscomplete", SqlDbType.Bit, 0, isComplete),
+                    new DalParm("contactid", SqlDbType.Int, 0, contactID),
+                    new DalParm("timelineDefinitionID", SqlDbType.Int, 0, timelineDefinitionID)
+                });
+        }
+
+        public void Post(int contactID, int timelineDefinitionID) {
+
+            var centralDal = CssContext.Instance.GetDAL(string.Empty) as DAL;
+
+            string sql =
+                "insert into wf.ContactTimeline(ContactID, TimelineDefinitionID, TimelineDefinitionStepID, IsComplete) " +
+                "select top 1 @ContactID, @TimelineDefinitionID, TimelineDefinitionStepID, 0 from wf.TimelineDefinitionStep where TimelineDefinitionID = @TimelineDefinitionID order by Position";
+
+            centralDal.GetDataset(sql,
+                new DalParm[] {
+                    new DalParm("contactid", SqlDbType.Int, 0, contactID),
+                    new DalParm("timelineDefinitionID", SqlDbType.Int, 0, timelineDefinitionID)
+                });
+
+        }
+
+        public void Delete(int contactID, int timelineDefinitionID) {
+            var centralDal = CssContext.Instance.GetDAL(string.Empty) as DAL;
+
+            string sql =
+                "delete from wf.ContactTimeline where TimelineDefinitionID = @TimelineDefinitionID and contactid = @contactid";
+
+            centralDal.GetDataset(sql,
+                new DalParm[] {
                     new DalParm("contactid", SqlDbType.Int, 0, contactID),
                     new DalParm("timelineDefinitionID", SqlDbType.Int, 0, timelineDefinitionID)
                 });
