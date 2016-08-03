@@ -30,13 +30,15 @@ namespace Timeline.DomainModel.Repositories {
             if (data.Tables[1].Rows.Count > 0) {
 
                 int selectedStepID = Convert.ToInt32(data.Tables[1].Rows[0]["TimelineDefinitionStepID"]);
+                bool isComplete = Convert.ToBoolean(data.Tables[1].Rows[0]["IsComplete"]);
+
                 var status = ClientTimelineStep.StepStatus.Complete;
 
                 foreach (DataRow row in data.Tables[0].Rows) {
 
                     int stepID = Convert.ToInt32(row["TimelineDefinitionStepID"]);
 
-                    if (selectedStepID == stepID) {
+                    if (selectedStepID == stepID && !isComplete) {
                         status = ClientTimelineStep.StepStatus.InProgress;
                     }
 
@@ -58,12 +60,13 @@ namespace Timeline.DomainModel.Repositories {
 
         }
 
-        public void Post(int contactID, int timelineDefinitionID, int stepID) {
+        public void Post(int contactID, int timelineDefinitionID, int stepID, bool isComplete) {
             var centralDal = CssContext.Instance.GetDAL(string.Empty) as DAL;
             centralDal.GetDataset(
-                "update WF.ContactTimeline set TimelineDefinitionStepID = @stepid where contactid = @contactid and TimelineDefinitionID = @TimelineDefinitionID",
+                "update WF.ContactTimeline set TimelineDefinitionStepID = @stepid, iscomplete = @iscomplete where contactid = @contactid and TimelineDefinitionID = @TimelineDefinitionID",
                 new DalParm[] {
                     new DalParm("stepid", SqlDbType.Int, 0, stepID),
+                    new DalParm("iscomplete", SqlDbType.Bit, 0, isComplete),
                     new DalParm("contactid", SqlDbType.Int, 0, contactID),
                     new DalParm("timelineDefinitionID", SqlDbType.Int, 0, timelineDefinitionID)
                 });

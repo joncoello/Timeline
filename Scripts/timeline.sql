@@ -35,11 +35,11 @@ Create Table WF.TimelineDefinitionStep(
 go
 
 Create Table WF.ContactTimeline(
-	ClientTimelineID				INT		IDENTITY(1,1),
-	TimelineDefinitionID			INT,
-	ContactID						INT,
-	TimelineDefinitionStepID		INT,
-	IsComplete						BIT,
+	ClientTimelineID				INT		NOT NULL	IDENTITY(1,1),
+	TimelineDefinitionID			INT		NOT NULL,
+	ContactID						INT		NOT NULL,
+	TimelineDefinitionStepID		INT		NOT NULL,
+	IsComplete						BIT		NOT NULL,
 
 	Constraint PK_ClientTimeline Primary Key Clustered (ClientTimelineID),
 	Constraint FK_ClientTimeline_TimelineDefinition Foreign Key (TimelineDefinitionID) References WF.TimelineDefinition(TimelineDefinitionID),
@@ -117,5 +117,5 @@ insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefini
 values ('Step 3', @definitionID, 2)
 
 -- client
-insert into wf.ContactTimeline(TimelineDefinitionID, TimelineDefinitionStepID, ContactID)
-values(@definitionID, @stepID, 307) -- bob jones contact - change on other DBs
+insert into wf.ContactTimeline(TimelineDefinitionID, TimelineDefinitionStepID, ContactID, IsComplete)
+values(@definitionID, @stepID, 307, 0) -- bob jones contact - change on other DBs

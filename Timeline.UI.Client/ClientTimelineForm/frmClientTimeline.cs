@@ -213,13 +213,21 @@ namespace Timeline.UI.Client.ClientTimelineForm {
 
                 var firstNotStartedStep = _timeline.Steps.FirstOrDefault(s => s.Status == ClientTimelineStep.StepStatus.NotStarted);
 
+                bool isComplete = true;
+                int stepID = firstInProgressStep.StepID;
+
                 if (firstNotStartedStep != null) {
+
+                    isComplete = false;
+                    stepID = firstNotStartedStep.StepID;
+
                     firstNotStartedStep.Status = ClientTimelineStep.StepStatus.InProgress;
-
-                    var repo = new ClientTimelineRepository();
-                    repo.Post(_contactID, _definition.TimelineDefinitionID, firstNotStartedStep.StepID);
-
+                    
                 }
+
+                var repo = new ClientTimelineRepository();
+                repo.Post(_contactID, _definition.TimelineDefinitionID, stepID, isComplete);
+
 
             }
 
