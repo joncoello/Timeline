@@ -10,10 +10,13 @@ using System.Windows.Forms;
 using System.Xml;
 using System.Threading;
 using System.Windows.Forms.DataVisualization.Charting;
+using MYOB.CSS;
+using MYOB.DAL;
 
 namespace Timeline.UI.Homepage {
     public partial class ctlTimelines : HomepageBase {
-        private DataTable data;
+
+        private DataSet data;
 
         public ctlTimelines() {
             InitializeComponent();
@@ -60,16 +63,15 @@ namespace Timeline.UI.Homepage {
             Thread.Sleep(2000);
 
             // get data
-            data = new DataTable();
-            data.Columns.Add("Milestone", typeof(string));
-            data.Columns.Add("Count", typeof(int));
-
-            data.Rows.Add("Information requested", 232);
-            data.Rows.Add("Information received", 132);
-            data.Rows.Add("Processing return", 86);
-            data.Rows.Add("In review", 91);
-            data.Rows.Add("Client Approval", 42);
-            data.Rows.Add("Submitted", 23);
+            var centralDal = CssContext.Instance.GetDAL(string.Empty) as DAL;
+            string sql =
+                "select tds.TimelineDefinitionStepID, tds.TimelineDefinitionStepName Milestone, count(tds.TimelineDefinitionStepID) [Count] from wf.ContactTimeline ct " +
+                "inner join wf.TimelineDefinitionStep tds on tds.TimelineDefinitionStepID = ct.TimelineDefinitionStepID " +
+                "where ct.TimelineDefinitionID = @TimelineDefinitionID " +
+                "group by tds.TimelineDefinitionStepID, tds.TimelineDefinitionStepName";
+            data = centralDal.GetDataset(sql, new DalParm[] {
+                new DalParm("TimelineDefinitionID", SqlDbType.Int, 0, 1)
+            });
 
             // refresh control
             if (this.InvokeRequired && this.IsHandleCreated) {
@@ -79,7 +81,7 @@ namespace Timeline.UI.Homepage {
 
         private void BindData() {
             
-            chtTimeline.DataSource = data;
+            chtTimeline.DataSource = data.Tables[0];
             chtTimeline.DataBind();
 
         }

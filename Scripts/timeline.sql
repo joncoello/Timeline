@@ -106,15 +106,25 @@ values('Personal Tax')
 set @definitionID = SCOPE_IDENTITY()
 
 insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefinitionID, Position)
-values ('Step 1', @definitionID, 0)
+values ('Information Requested', @definitionID, 0)
 
 insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefinitionID, Position)
-values ('Step 2', @definitionID, 1)
+values ('Information Received', @definitionID, 1)
 
 set @stepID = SCOPE_IDENTITY()
 
 insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefinitionID, Position)
-values ('Step 3', @definitionID, 2)
+values ('Tax return in process', @definitionID, 2)
+
+insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefinitionID, Position)
+values ('Internal review', @definitionID, 3)
+
+insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefinitionID, Position)
+values ('Client approval', @definitionID, 4)
+
+insert into wf.TimelineDefinitionStep(TimelineDefinitionStepName, TimelineDefinitionID, Position)
+values ('Submitted', @definitionID, 5)
+
 
 -- client
 insert into wf.ContactTimeline(TimelineDefinitionID, TimelineDefinitionStepID, ContactID, IsComplete)
