@@ -36,7 +36,9 @@
             // 
             // cmdClose
             // 
-            this.cmdClose.Location = new System.Drawing.Point(395, 1);
+            this.cmdClose.Location = new System.Drawing.Point(219, 1);
+            this.cmdClose.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cmdClose.Size = new System.Drawing.Size(12, 13);
             // 
             // chtTimeline
             // 
@@ -47,13 +49,14 @@
             this.chtTimeline.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chtTimeline.Legends.Add(legend1);
-            this.chtTimeline.Location = new System.Drawing.Point(3, 3);
+            this.chtTimeline.Location = new System.Drawing.Point(2, 2);
+            this.chtTimeline.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.chtTimeline.Name = "chtTimeline";
             series1.ChartArea = "ChartArea1";
             series1.Legend = "Legend1";
             series1.Name = "Series1";
             this.chtTimeline.Series.Add(series1);
-            this.chtTimeline.Size = new System.Drawing.Size(405, 361);
+            this.chtTimeline.Size = new System.Drawing.Size(304, 293);
             this.chtTimeline.TabIndex = 0;
             this.chtTimeline.Text = "chart1";
             // 
@@ -63,21 +66,24 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             cboDefinition_DesignTimeLayout.LayoutString = resources.GetString("cboDefinition_DesignTimeLayout.LayoutString");
             this.cboDefinition.DesignTimeLayout = cboDefinition_DesignTimeLayout;
-            this.cboDefinition.Location = new System.Drawing.Point(3, 370);
+            this.cboDefinition.Location = new System.Drawing.Point(2, 301);
+            this.cboDefinition.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.cboDefinition.Name = "cboDefinition";
             this.cboDefinition.SelectedIndex = -1;
             this.cboDefinition.SelectedItem = null;
-            this.cboDefinition.Size = new System.Drawing.Size(405, 22);
+            this.cboDefinition.Size = new System.Drawing.Size(304, 20);
             this.cboDefinition.TabIndex = 1;
+            this.cboDefinition.ValueChanged += new System.EventHandler(this.cboDefinition_ValueChanged);
             // 
             // ctlTimelines
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.cboDefinition);
             this.Controls.Add(this.chtTimeline);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "ctlTimelines";
-            this.Size = new System.Drawing.Size(411, 395);
+            this.Size = new System.Drawing.Size(308, 321);
             this.DoubleClick += new System.EventHandler(this.ctlTimelines_DoubleClick);
             this.Controls.SetChildIndex(this.chtTimeline, 0);
             this.Controls.SetChildIndex(this.cboDefinition, 0);
